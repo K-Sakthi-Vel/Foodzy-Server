@@ -26,10 +26,12 @@ model User {
 model Order {
   id             String   @id @default(cuid())
   items          Json
-  address        Json
+  address        String
   paymentOption  String
   deliveryMethod String
   billingDetails Json
+  totalAmount    Float
+  deliveryFee    Float
   user           User     @relation(fields: [userId], references: [id])
   userId         String
   createdAt      DateTime @default(now())
