@@ -6,6 +6,12 @@ dotenv.config();
 
 const router = express.Router();
 
+// Basic email validation function
+const isValidEmail = (email: string): boolean => {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
+};
+
 // Configure Nodemailer transporter
 const transporter = nodemailer.createTransport({
   service: 'gmail', // You can use other services like 'Outlook365', 'SendGrid', etc.
@@ -20,6 +26,10 @@ router.post('/subscribe-seller', async (req, res) => {
 
   if (!email) {
     return res.status(400).json({ message: 'Email is required' });
+  }
+
+  if (!isValidEmail(email)) {
+    return res.status(400).json({ message: 'Invalid email address format' });
   }
 
   try {
