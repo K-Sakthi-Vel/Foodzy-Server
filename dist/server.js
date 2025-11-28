@@ -2,12 +2,14 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import authRoutes from './routes/authRoutes.js';
+import newsletterRoutes from './routes/newsletterRoutes.js'; // Import the new newsletter routes
 dotenv.config();
 const app = express();
 const port = 5000;
 app.use(cors());
 app.use(express.json());
 app.use('/api/auth', authRoutes);
+app.use('/api', newsletterRoutes); // Use the newsletter routes
 app.get('/', (req, res) => {
     return res.send('Welcome to foodzy backend api');
 });
